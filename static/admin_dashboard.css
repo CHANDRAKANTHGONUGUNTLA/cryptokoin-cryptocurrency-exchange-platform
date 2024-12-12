@@ -1,0 +1,260 @@
+/* General Styles */
+body {
+    font: "EB Garamond", serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    margin-top: 100px
+}
+.title-dashboard {
+    margin-top: 100px;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Charts Section (Left Side) */
+.charts-section {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 30px; /* Increased the gap for better vertical spacing */
+    flex: 2;
+}
+
+/* Stats Section (Right Side) */
+.stats-section {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 30px;
+    flex: 1;
+}
+
+/* Individual Chart Containers */
+.user-growth-chart,
+.daily-transactions-chart,
+.crypto-distribution-chart,
+.top-users-table,
+.total-users-revenue {
+    
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles for Top Users */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+/* Label and Value Styling for Total Users and Total Revenue */
+.total-users-revenue p {
+    color: grey;
+    font-size: 1.5rem;  /* Font size for labels */
+    margin: 10px 0;
+}
+
+.total-users-revenue .total-users,
+.total-users-revenue .total-revenue {
+    font: "EB Garamond", serif;
+    color: #1f4c76;
+    font-size: 2.5rem;  /* Font size for values */
+    font-weight: bold;  /* Make the values bold */
+}
+
+/* Chart Title Styling */
+h2 {
+    color: #1f4c76;  /* Blue color for all chart titles */
+    margin-bottom: 10px;
+}
+
+/* Specific Chart Styling */
+.user-growth-chart,
+.daily-transactions-chart,
+.crypto-distribution-chart {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Container Styling */
+.top-users-table {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for Total Users and Revenue (For Proper Layout) */
+.total-users-revenue {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Adjusting the Layout for Flexibility */
+.dashboard-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.charts-section {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 30px;
+    flex: 2;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 30px;
+    flex: 1;
+}
+
+.taskbar {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1f4c76; 
+    color: white;
+    padding: 3px 20px;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.taskbar .logo-section {
+    display: flex;
+    align-items: center;
+}
+.taskbar .company_logo {
+    height: 50px;
+    margin-right: 3px;
+}
+
+.taskbar .company_name_link {
+    text-decoration: none;
+}
+
+.taskbar .company_name {
+    font-family: "Vast Shadow", serif;
+    font-size: 24px;
+    color: black;
+    font-weight: 600;
+    margin: 0;
+    transition: color 0.3s;
+}
+.taskbar .company_name:hover {
+    color: #fddc01;
+}
+
+.taskbar .items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.taskbar .items input[type="text"] {
+    padding: 8px 10px;  /* Adds padding around the input */
+    border: none;
+    border-radius: 4px;  /* Optional: rounds the corners */
+    font-size: 16px;
+    margin-top: 3px;
+    margin-right: 16px;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.taskbar .items input[type="text"]:focus {
+    background-color: #f1f1f1; /* Slight change in background color when focused */
+    outline: none;
+}
+
+
+.taskbar  .items a, .dropbtn {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 8px 12px; 
+    transition: color 0.3s;
+}
+
+.taskbar .items a:hover {
+    color: black;
+}
+
+.taskbar .dropbtn {
+    all: unset; 
+    font-size: 18px;
+    font-weight: 1000;
+    color: white;
+    padding: 8px 12px;
+}
+
+
+.taskbar .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.taskbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #f1f1f1;
+    min-width: 100px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+}
+
+.taskbar .dropdown-content a {
+    color: #1f4c76;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background 0.3s;
+}
+
+.taskbar .dropdown-content a:hover {
+    background: #ddd;
+}
+
+.taskbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.taskbar .dropdown:last-child {
+    margin-right: 30px;
+}
+
+

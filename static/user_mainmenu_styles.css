@@ -1,0 +1,185 @@
+
+
+/* Main container setup */
+.main-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.assets-box {
+    margin-top: 40px;   
+    width: 65%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.assets-title {
+    font: "EB Garamond", serif;
+    text-align: center;
+    position: sticky;
+    font-family: 'Electrolize', sans-serif;
+    margin-bottom: 20px;
+    color: white;
+    background-color: #1f4c76;
+    padding: 10px;
+    z-index: 1;
+    border-bottom: 1px solid #ddd; 
+}
+
+
+.liquid-balance {
+    text-align: left; 
+    margin-bottom: 20px; 
+}
+
+.net-worth-title {
+    font: "EB Garamond", serif;
+    font-size: 2rem; /* Adjust the size for the title */
+    font-weight: bold;
+    color: grey; /* Use a dark color for the title */
+}
+
+.net-worth-value {
+    font: "EB Garamond", serif;
+    font-size: 3rem; /* Larger font for the amount */
+    font-weight: bold;
+    color: black; /* Highlight color for the amount (blue in this case) */
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px; /* Spacing between title and amount */
+}
+
+
+.balance-summary p {
+    font: "EB Garamond", serif;
+    font-size: 1.5rem;
+    text-align: left;
+    color: grey;
+    gap:10px;
+    margin: 5px 0;
+    margin-bottom: 20px;
+}
+
+.crypto-title {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
+    color: black;
+    margin: 5px 0;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+}
+
+
+.assets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Electrolize', sans-serif;
+}
+
+.assets-table th,
+.assets-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.assets-table th {
+    background-color: #f4f4f4;
+}
+
+.assets-table .positive {
+    color: green;
+}
+
+.assets-table .negative {
+    color: red;
+}
+
+
+
+/* Market box styling */
+.market-box {
+    margin-top:40px ;
+    width: 30%; /* Occupies 30% of the width */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto; /* Enables scrolling for long content */
+}
+
+.market-title {
+    position: sticky;
+    top: 0; /* Keeps the title at the top of its container */
+    background-color: #1f4c76; /* Set your desired background color */
+    color: white; /* Optional: Set text color for contrast */
+    padding: 10px;
+    z-index: 1; /* Ensures the title stays above other content */
+    text-align: center;
+    font-family: 'Electrolize', sans-serif;
+    border-bottom: 1px solid #ddd; /* Optional: Adds a border for separation */
+}
+
+
+/* Crypto table styling */
+.crypto-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Electrolize', sans-serif;
+    
+}
+.crypto-table th {
+    position: sticky;
+    top: 55px; /* Adjust based on the height of your title */
+    background-color: #f4f4f4; /* Set background for the headers */
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    z-index: 1; /* Ensures headers stay above table rows */
+}
+
+.crypto-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.coin-logo {
+    width: 30px;
+    height: 30px;
+}
+.positive {
+    color: green;
+}
+.negative {
+    color: red;
+}
+/* Make rows visually distinct on hover */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for color and background */
+}
+
+.clickable-row:hover {
+    background-color: #d5d8db; /* Light blue background color */
+    color: #1f4c76; /* Change text color to a shade of blue for contrast */
+}
+
+/* Add additional padding for larger screens */
+@media (min-width: 768px) {
+    .main-container {
+        padding: 40px;
+    }
+}

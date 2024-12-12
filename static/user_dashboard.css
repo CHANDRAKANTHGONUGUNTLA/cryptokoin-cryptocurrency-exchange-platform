@@ -1,0 +1,86 @@
+.launch-intro {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #1f4c76;
+    font-weight: bold;
+    margin-top: 80px;
+    letter-spacing: 1px; /* Add spacing between letters */
+    word-spacing: 3px; 
+}
+
+.launch-title {
+    font-family: "Vast Shadow", serif;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #efbf04;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 2px; /* Add spacing between letters */
+    word-spacing: 5px; 
+}
+
+.coin-image-container {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+.coin-image {
+        max-width: 200px;
+        height: auto;
+    }
+
+
+.launch-container {
+    background-color: #1f4c76;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+.ckn {
+    font-family: "Vast Shadow", serif;
+    color: #efbf04;
+    font-weight: bold;
+}
+
+
+.intro-text {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.benefits-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.benefits-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.benefits-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 1.1rem;
+}
+
+.benefits-section li {
+    margin-bottom: 10px;
+}
+
+.cta-section {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.subscribe-button:hover {
+    background-color: black;
+    color: white;
+}

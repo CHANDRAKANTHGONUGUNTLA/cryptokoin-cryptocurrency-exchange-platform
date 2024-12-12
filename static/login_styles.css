@@ -1,0 +1,162 @@
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the page background color and basic layout */
+body {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #F8F9FA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+form {
+    background-color: #1f4c76;
+    padding: 60px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 120%;
+    text-align: left;
+    position: center;
+}
+
+
+/* Style the main heading */
+.login_title {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style labels */
+label {
+    font-size: 1rem;
+    color: #F8F9FA; /* Light color for labels */
+    font-weight: normal;
+}
+
+
+
+/* Style input fields and dropdown */
+.form_text input[type="text"], input[type="password"] {
+    font-family: 'Montserrat Alternates', sans-serif;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f4c76;
+}
+
+select {
+    font-family: 'Montserrat Alternates', sans-serif;
+    width: 40%;
+    padding: 6px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f4c76;
+}
+
+/* Style for placeholder text */
+input::placeholder {
+    color: #999;
+    font-weight: normal;
+}
+
+/* Submit Button */
+button {
+    font-weight: bold;
+    width: 100%;
+    padding: 12px;
+    background-color: white; /* Bright yellow background */
+    color: #1f4c76;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Right-align the forgot password link */
+a.forgot-password {
+    display: block;
+    text-align: right;
+    color: white;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    margin-top: -5px;
+    margin-bottom: -7px;
+}
+
+
+a.forgot-password:hover {
+    color: black;
+}
+
+.signup p {
+    text-align: center;
+    font-weight: normal;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.signup a {
+    text-align: center;
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.signup a:hover {
+    color: black
+}
+
+
+/* Style the container for error messages */
+
+.error-messages {
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    color: #b30000; /* Dark red text */
+    padding: 10px; /* Reduce padding for smaller height */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    width: 300px; /* Adjust width to your preference */
+    margin: 0 auto; /* Center the box horizontally */
+    text-align: center; /* Align text to the left */
+}
+
+/* Style the list of errors */
+.error-messages ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /* Remove bullet points */
+}
+
+/* Style individual error items */
+.error-messages li {
+    margin-bottom: 5px;
+    line-height: 1.5;
+}

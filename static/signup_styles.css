@@ -1,0 +1,155 @@
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style the form */
+form {
+    background-color: #1f4c76;
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 120%;
+    text-align: left;
+    position: center;
+}
+
+/* Set the page background color and basic layout */
+body {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #F8F9FA;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+
+/* Style the main heading */
+.signup_title, .profile_title {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style the form groups to display label and input side-by-side */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: #F8F9FA;
+    font-weight: normal;
+    width: 30%; /* Adjust width to align with input */
+    margin-right: 10px;
+}
+
+.form-group input[type="text"], .form-group input[type="password"], 
+.form-group input[type="email"], .form-group input[type="date"] {
+    font-family: 'Montserrat Alternates', sans-serif;
+    width: 70%; /* Adjust width to align with label */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f4c76;
+}
+
+.form-group input[type="date"] {
+    font-family: 'Montserrat Alternates', sans-serif;
+    width: 30%; /* Adjust width to align with label */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f4c76;
+}
+
+
+
+/* Style for placeholder text */
+input::placeholder {
+    color: #999;
+    font-weight: normal;
+}
+
+/* Submit Button */
+button {
+    font-weight: bold;
+    width: 100%;
+    padding: 12px;
+    background-color: white;
+    color: #1f4c76;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 30px;
+}
+
+button:hover {
+    background-color: black;
+    color:  white;
+}
+
+
+
+/* Login link */
+.login p {
+    text-align: center;
+    font-weight: normal;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.login a {
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.login a:hover {
+    color: black;
+}
+
+
+.error-messages {
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    color: #b30000; /* Dark red text */
+    padding: 10px; /* Reduce padding for smaller height */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    width: 300px; /* Adjust width to your preference */
+    margin: 0 auto; /* Center the box horizontally */
+    text-align: center; /* Align text to the left */
+}
+
+/* Style the list of errors */
+.error-messages ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /* Remove bullet points */
+}
+
+/* Style individual error items */
+.error-messages li {
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
