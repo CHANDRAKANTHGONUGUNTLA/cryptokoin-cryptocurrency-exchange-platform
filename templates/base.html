@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base_styles.css') }}">
+    <title>{% block title %}CryptoKoiN{% endblock %}</title>
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <header class="taskbar">
+        <div class="logo-section">
+            <a href="{% block logo_url %}#{% endblock %}" class="logo-container">
+                <img src="{{ url_for('static', filename='blackcircle.png') }}" alt="Logo" class="company_logo"> 
+            </a>  
+            <a href="{% block cname_url %}#{% endblock %}" class="company_name_link">
+                <h1 class="company_name">CryptoKoiN</h1>
+            </a>          
+        </div>
+        <nav class="items" {% if navigation_items %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <div class="dropdown">
+                <button class="dropbtn">Rewards</button>
+                <div class="dropdown-content">
+                    <a href="/mainmenu/rewards/referrals">Referrals</a>
+                    <a href="/mainmenu/rewards/cryptokoin">CryptoKoin</a>
+                </div>
+            </div>
+            <a href="/mainmenu/market" class="available-coins">Market</a>
+            <a href="/mainmenu/trade" class="trade">Trade</a>
+            <div class="dropdown">
+                <button class="dropbtn">Wallet</button>
+                <div class="dropdown-content">
+                    <a href="/mainmenu/wallet/deposit">Deposit</a>
+                    <a href="/mainmenu/wallet/withdraw">Withdraw</a>
+                    <a href="/mainmenu/wallet/transactions">Transactions</a>
+                </div>
+            </div>
+            <a href="/mainmenu/investments" class="investments">Investments</a>
+            <a href="/mainmenu/transactions" class="transactions">Crypto Transactions</a>
+            <div class="dropdown">
+                <button class="dropbtn">Account  </button>
+                <div class="dropdown-content">
+                    <a href="/mainmenu/account/profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+        
+        
+    </header>
+
+    <!-- Page content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    {% block taskbar_content %}{% endblock %}
+
+</body>
+</html>

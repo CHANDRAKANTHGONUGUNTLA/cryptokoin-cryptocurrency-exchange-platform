@@ -1,0 +1,66 @@
+{% extends "admin_base.html" %}
+
+{% block logo_url %}/admin_mainmenu{% endblock %} 
+{% block cname_url %}/admin_mainmenu{% endblock %} 
+{% block title %}User Management | CryptoKoin{% endblock %}
+
+{% block content %}
+
+
+{% if msg %}
+<div id="trade-msg" class="{{ msg_type }}">
+    {{ msg }}
+</div>
+{% endif %}
+
+<div class="market-container">
+    <h1 class="market-title">User Management</h1>
+    <table class="crypto-table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Joined</th>
+                <th>Wallet Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.created_at }}</td>
+                <td>${{ user.wallet_balance | round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .market-container {
+        margin: 20px;
+    }
+    .market-title {
+        text-align: center;
+        font-family: 'Electrolize', sans-serif;
+        margin-top: 100px
+    }
+    .crypto-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        font-family: 'Electrolize', sans-serif;
+    }
+    .crypto-table th, .crypto-table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    .crypto-table th {
+        background-color: #f4f4f4;
+    }
+</style>
+{% endblock %}

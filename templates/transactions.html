@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block title %}Crypto Transactions | CryptoKoin{% endblock %}
+
+{% block content %}
+
+
+{% if msg %}
+<div id="trade-msg" class="{{ msg_type }}">
+    {{ msg }}
+</div>
+{% endif %}
+
+<div class="transaction-container">
+    <h1 class="transaction-title">Transactions</h1>
+    <table class="transaction-table">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Coin Name</th>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Total Value</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td><img src="{{ transaction.image_url }}" alt="{{ transaction.name }} logo" class="coin-logo"></td>
+                <td>{{ transaction.coin_name }}</td>
+                <td>{{ transaction.transaction_type }}</td>
+                <td>{{ transaction.quantity |round(2)}}</td>
+                <td>${{ transaction.total_amount|round(2) }}</td>
+                <td>{{ transaction.transaction_timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .transaction-container {
+        margin: 20px;
+    }
+    .transaction-title {
+        text-align: center;
+        font-family: 'Electrolize', sans-serif;
+        margin-top: 100px
+    }
+    .transaction-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        font-family: 'Electrolize', sans-serif;
+    }
+    .transaction-table th, .transaction-table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    .transaction-table th {
+        background-color: #f4f4f4;
+    }
+    .coin-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+</style>
+{% endblock %}

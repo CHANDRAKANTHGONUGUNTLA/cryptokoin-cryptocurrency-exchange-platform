@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block title %}Mainmenu | CryptoKoin{% endblock %}
+
+{% block head %}
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_mainmenu_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% if msg %}
+<div id="trade-msg" class="{{ msg_type }}">
+    {{ msg }}
+</div>
+{% endif %}
+
+<div class="main-container">
+    
+
+    <!-- New My Assets Section -->
+    <div class="assets-box">
+        <h1 class="assets-title">Portfolio Overview</h1>
+        <div class="liquid-balance">
+            <div class="net-worth-title">Net Worth:</div>
+            <div class="net-worth-value" id="liquid-value">${{ liquid_value | round(2)}}</div>
+        </div>
+        <div class="balance-summary">
+            <p>Digital Assets:     ${{ crypto_balance | round(2) }}</p>
+            <p>Wallet Balance:     ${{ wallet_balance | round(2)}}</p>
+        </div>
+        <h2 class="crypto-title">Portfolio Breakdown</h2>
+        <table class="assets-table">
+            <thead>
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Holdings</th>
+                    <th>Current Price</th>
+                    <th>Amount</th>
+                    <th>Profit/Loss</th>
+                    <th>Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in user_assets %}
+                <tr class="clickable-row" data-href="{{ url_for('coin_details', coin_id=asset.coin_symbol) }}">
+                    <td><img src="{{ asset.image_url }}" alt="{{ asset.coin_name }} logo" class="coin-logo"></td>
+                    <td>{{ asset.coin_name }}</td>
+                    <td>{{ asset.quantity }}</td>
+                    <td>{{ asset.current_price | round(2) }}</td>
+                    <td>{{ asset.current_balance }}</td>
+                    <td class="{{ 'positive' if asset.profit_loss > 0 else 'negative' }}">
+                        {{ asset.profit_loss | round(2) }}
+                    </td>
+                    <td class="{{ 'positive' if asset.percentage_change > 0 else 'negative' }}">
+                        {{ asset.percentage_change | round(2) }}%
+                    </td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Existing Profitable Coins Section -->
+    <div class="market-box">
+        <h1 class="market-title">Profitable Coins (24h)</h1>
+        <table class="crypto-table">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Coin</th>
+                    <th>(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coin in coins %}
+                <tr class="clickable-row" data-href="{{ url_for('coin_details', coin_id=coin.coin_symbol) }}">
+                    <td><img src="{{ coin.image_url }}" alt="{{ coin.name }} logo" class="coin-logo"></td>
+                    <td>{{ coin.coin_symbol }}</td>
+                    <td class="{{ 'positive' if coin.price_change_percentage_24h > 0 else 'negative' }}">
+                        {{ coin.price_change_percentage_24h | round(2) }}%
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const rows = document.querySelectorAll('.clickable-row');
+            rows.forEach(row => {
+                row.addEventListener('click', function () {
+                    const href = this.dataset.href;
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+</script>
+{% endblock %}
+
+

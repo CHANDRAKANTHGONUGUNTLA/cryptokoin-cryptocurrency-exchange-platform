@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Deposit | CryptoKoin{% endblock %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block content %}
+
+<h2 class = 'withdraw-title'>Withdraw Funds</h2>
+
+<div style="text-align: right; margin: 20px 500px;">
+    <p style="font-size: 1.2em; color: #1f4c76; font-weight:600">Wallet Balance: {{ wallet_balance | round(2) }}</p>
+</div>
+
+
+
+<div class="wallet-container">
+
+    {% if msg %}
+    <div id="trade-msg" class="{{ msg_type }}">
+        {{ msg }}
+    </div>
+    {% endif %}
+
+    <!-- Deposit Form -->
+    <form id="withdraw-form" action="/mainmenu/wallet/withdraw" method="POST">
+        <h3 class = "form-title">Transaction Details</h3>
+
+        <!-- Enter withdraw_amount -->
+        <div class="form-row">
+            <label for="withdraw_amount">Enter withdraw_amount:</label>
+            <input type="number" id="withdraw_amount" name="withdraw_amount" placeholder="Minimum $10" required>
+        </div>
+
+        <!-- Cardholder Name -->
+        <div class="form-row">
+            <label for="bank_name">Bank Name:</label>
+            <input type="text" id="bank_name" name="bank_name" placeholder="Enter name of the bank" required>
+        </div>
+
+        <!-- Card Number -->
+        <div class="form-row">
+            <label for="account_number">Bank Account Number:</label>
+            <input type="number" id="account_number" name="bank_account" placeholder="Enter your bank account number" required>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit"  class = 'wit-button'  style="margin-top: 20px;">Withdraw</button>
+    </form>
+</div>
+
+<style>
+
+    .withdraw-title{
+        font-size: 2rem;
+        text-align: center;
+        color: #1f4c76;
+        font-weight:bold;
+        margin-bottom: 40px;
+        margin-top: 120px
+    }
+
+
+    .wallet-container {
+        background-color: #1f4c76;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .form-title {
+        margin-top:10px;
+        margin-bottom:20px;
+        color:white;
+        font-weight:bold;
+        text-align:left;
+    }
+
+    .form-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-row label {
+        width: 40%;
+        font-size: 1rem;
+        color: #F8F9FA;
+    }
+
+    .form-row input {
+        width: 55%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #1f4c76;
+    }
+
+    .wit-button {
+        width: 100%;
+        padding: 12px 0; /* Slightly increased padding */
+        background-color: white;
+        color: #1f4c76;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+    }
+    
+    .wit-button:hover {
+        background-color: black;
+        color: white;
+    }
+    
+    .wit-button:focus {
+        outline: 2px solid #1f4c76; /* Add focus for accessibility */
+        outline-offset: 2px;
+    }
+
+    #trade-msg {
+        text-align: center;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid;
+    }
+    .success {
+            color: green;
+            border-color: green;
+            font-weight: bold;
+        }
+    .error {
+            color: red;
+            border-color: red;
+            font-weight: bold;
+        }
+</style>
+{% endblock %}

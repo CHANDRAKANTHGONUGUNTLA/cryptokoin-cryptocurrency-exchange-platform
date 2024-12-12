@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class = 'title-dashboard'>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="taskbar">
+        <div class="logo-section">
+            <a href="{% block logo_url %}/admin_mainmenu{% endblock %}" class="logo-container">
+                <img src="{{ url_for('static', filename='blackcircle.png') }}" alt="Logo" class="company_logo"> 
+            </a>
+            <a href="{% block cname_url %}/admin_mainmenu{% endblock %}" class="company_name_link">
+                <h1 class="company_name">CryptoKoiN</h1>
+            </a>
+        </div>
+        <nav class="items">
+            <a href="/admin_mainmenu/user_management" class="user-management">User Management</a>
+            <a href="/admin_mainmenu/transactions" class="transactions">Transaction Analytics</a>
+            <a href="/admin_mainmenu/wallet_transactions" class="wallet-transactions">Wallet Transactions</a>
+            <a href="/admin_mainmenu/market" class="available-coins">Market Insights</a>
+            <div class="dropdown">
+                <button class="dropbtn">Account</button>
+                <div class="dropdown-content">
+                    <a href="/admin_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <h1>Admin Dashboard</h1>
+    <div class="dashboard-container">
+        <div class="charts-section">
+            <div class="user-growth-chart">
+                <h2>User Growth Trends</h2>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+            <div class="daily-transactions-chart">
+                <h2>Daily Revenue with Transaction Breakdown</h2>
+                <canvas id="dailyTransactionsChart"></canvas>
+            </div>
+        </div>
+        <div class="stats-section">
+            <div class="total-users-revenue">
+                <p class="label">Total Users: <span class="total-users" id="totalUsers"></span></p>
+                <p class="label">Total Revenue from Fees: <span class="total-revenue" id="totalRevenue"></span></p>
+            </div>
+            <div class="top-users-table">
+                <h2>Top Users by Transaction Volume</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Transaction Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody"></tbody>
+                </table>
+            </div>
+            <div class="crypto-distribution-chart">
+                <h2>Top Cryptocurrencies by Transaction Volume</h2>
+                <canvas id="cryptoPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data from Flask
+        const dateCounts = JSON.parse('{{ def_data|safe }}');
+        const cryptoData = JSON.parse('{{ crypto_data|safe }}');
+        const transactions = JSON.parse('{{ transactions|safe }}');
+        const topUsers = JSON.parse('{{ top_users|safe }}');
+        const totalUsers = {{ t_users }};
+        const totalRevenue = {{ t_revenue | round(2)}};
+
+        // Display Total Users and Revenue
+        document.getElementById('totalUsers').textContent = totalUsers;
+        document.getElementById('totalRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
+
+        // Chart Initialization Helper Function
+        const createChart = (ctx, type, data, options) => new Chart(ctx, { type, data, options });
+
+        // User Growth Chart
+        createChart(document.getElementById('userGrowthChart').getContext('2d'), 'line', {
+            labels: Object.keys(dateCounts).map(date => new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })),
+            datasets: [{
+                label: 'Total Users',
+                data: Object.values(dateCounts),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true
+            }]
+        }, {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Users'
+                    }
+                }
+            }
+        });
+
+        // Cryptocurrency Pie Chart
+        const cryptoLabels = cryptoData.map(c => c.name);
+        const cryptoValues = cryptoData.map(c => c.value);
+        const cryptoPercentages = cryptoData.map(c => c.percentage);
+        createChart(document.getElementById('cryptoPieChart').getContext('2d'), 'pie', {
+            labels: cryptoLabels,
+            datasets: [{
+                data: cryptoValues,
+                backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#9966ff'],
+            }]
+        }, {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${cryptoLabels[context.dataIndex]}: ${cryptoPercentages[context.dataIndex]}% (${cryptoValues[context.dataIndex]})`
+                    }
+                }
+            }
+        });
+
+        // Daily Transactions Bar Chart
+        const transactionLabels = transactions.map(t => new Date(t.date).toLocaleDateString(undefined, { month: 'long', day: 'numeric' }));
+        const transactionRevenues = transactions.map(t => t.revenue);
+        const transactionDetails = transactions.map(t => t.details || { buys: 0, sells: 0 });
+        createChart(document.getElementById('dailyTransactionsChart').getContext('2d'), 'bar', {
+            labels: transactionLabels,
+            datasets: [{
+                label: 'Revenue ($)',
+                data: transactionRevenues,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            }]
+        }, {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Transaction Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Revenue (USD)'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const details = transactionDetails[context.dataIndex];
+                            return `Revenue: $${context.raw} (${details.buys} buys, ${details.sells} sells)`;
+                        }
+                    }
+                }
+            }
+        });
+
+        // Populate Top Users Table
+        document.getElementById('userTableBody').innerHTML = topUsers.map(user =>
+            `<tr><td>${user.username}</td><td>$${user.transaction_amount.toFixed(2)}</td></tr>`).join('');
+    </script>
+</body>
+</html>

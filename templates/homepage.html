@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Start | CryptoKoin{% endblock %}
+{% block head %}
+    <img src="{{ url_for('static', filename='blackcircle.png') }}" alt="poster" class="poster">
+    <h1>Welcome to CryptoKoiN</h1>
+{% endblock %}
+    
+{% block content %}
+    <div class="button-container">
+        <button type="button" class = "options"  onclick="window.location.href='{{ url_for('login') }}'">Log in</button>
+        <button type="button" class = "options"  onclick="window.location.href='{{ url_for('create_account') }}'">Sign Up</button>
+        <button type="button" class = "options"  onclick="window.location.href='{{ url_for('reset_password') }}'">Reset Password</button>
+    </div>
+
+
+    <style>
+        .poster {
+            width: 200px; 
+            position: fixed;
+            top: 22%;  
+            left: 50%; 
+            transform: translateX(-50%);  
+        }
+
+        /* Style for the heading */
+        h1 {
+            margin-top: 220px;  
+            font-size: 32px;  
+        }
+
+        /* Container for buttons */
+        .button-container {
+            display: flex;
+            flex-direction: column;  /* Align buttons vertically */
+            justify-content: center; /* Vertically centers the buttons */
+            align-items: center;     /* Horizontally center the buttons */
+            margin-top: 50px; /* Adjust this to add space from top of the page */
+        }
+        
+        .options {
+            background-color: #1f4c76;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 12px 25px;
+            margin: 10px;
+            cursor: pointer;
+            width: 250px;  /* Button width */
+            transition: background-color 0.3s ease;
+        }
+        
+        /* Button hover effect */
+        .options:hover {
+            background-color: black;
+        }
+
+        /* Ensure the body takes full height and centers content */
+        body {
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Additional responsiveness for small screens */
+        @media (max-width: 600px) {
+            .poster {
+                width: 150px; /* Smaller logo size for mobile */
+            }
+
+            button {
+                width: 80%;  /* Full width for smaller screens */
+                font-size: 14px; /* Smaller font size */
+            }
+
+            h1 {
+                font-size: 24px; /* Adjust title font size for mobile */
+            }
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Log In | CryptoKoin{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_styles.css') }}">
+{% endblock %}
+
+{% block logo_url %}/{% endblock %} 
+{% block cname_url %}/{% endblock %} 
+
+{% block content %}
+    <div>
+        <form action="/login" method="POST">
+            <h2 class="login_title">Log in</h2>
+
+            {% if msg %}
+            <div id="loginmsg">
+            
+                {{ msg }}
+            
+            </div>
+            {% endif %}
+
+
+            <div class = 'form_text'>
+                <!-- Text input -->
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                <br><br>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <br>
+
+                <a href="{{ url_for('reset_password') }}" class="forgot-password">Forgot password?</a><br>
+
+                <!-- Submit button -->
+                <button type="submit">Log in</button>
+                <br><br><br>
+            </div>
+
+            <div class="signup">
+                <p>Don't have an account? <a href="{{ url_for('create_account') }}">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

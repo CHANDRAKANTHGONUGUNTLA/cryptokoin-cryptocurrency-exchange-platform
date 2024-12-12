@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Referral | CryptoKoin{% endblock %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block content %}
+
+<h2 class="referral-title">Refer & Earn</h2>
+
+<div class="referral-container">
+    <p class="referral-text">
+        Please share your referral code with your friends. When they sign up, both of you will receive 100 tokens of CKN!
+    </p>
+
+    <p style = 'font-size: 1.2rem;'>Your Referral Code:</p>
+    <div class="referral-code-box">
+        <p class="referral-code">{{ username }}</p>
+    </div>
+
+    <button class="copy-button" onclick="copyReferralCode()">Copy Code</button>
+</div>
+
+<script>
+    function copyReferralCode() {
+        const code = "{{ username }}";
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Referral code copied to clipboard!");
+        });
+    }
+</script>
+
+<style>
+    .referral-title {
+        font-size: 2rem;
+        text-align: center;
+        color: #1f4c76;
+        font-weight: bold;
+        margin-top: 100px;
+        margin-bottom: 20px;
+    }
+
+    .referral-container {
+        background-color: #1f4c76;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        color: white;
+    }
+
+    .referral-text {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .referral-code-box {
+        background-color: white;
+        color: #1f4c76;
+        padding: 10px;
+        margin: 15px 0;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .copy-button {
+        padding: 10px 20px;
+        background-color: white;
+        color: #1f4c76;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .copy-button:hover {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+{% endblock %}

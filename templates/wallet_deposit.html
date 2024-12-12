@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Deposit | CryptoKoin{% endblock %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block content %} 
+
+<h2 class = 'deposit-title'>Deposit Funds </h2>
+
+<div style="text-align: right; margin: 20px 500px;">
+    <p style="font-size: 1.2em; color: #1f4c76; font-weight:600">Wallet Balance: {{ wallet_balance | round(2)}}</p>
+</div>
+
+
+
+<div class="wallet-container">
+
+    {% if msg %}
+    <div id="trade-msg" class="{{ msg_type }}">
+        {{ msg }}
+    </div>
+    {% endif %}
+
+    <!-- Deposit Form -->
+    <form id="deposit-form" action="/mainmenu/wallet/deposit" method="POST">
+        <h3 class = "form-title">Transaction Details</h3>
+
+        <!-- Enter Amount -->
+        <div class="form-row">
+            <label for="amount">Enter Amount:</label>
+            <input type="number" id="amount" name="amount" placeholder="Minimum $10" required>
+        </div>
+
+        <!-- Cardholder Name -->
+        <div class="form-row">
+            <label for="cardholder_name">Name on Card:</label>
+            <input type="text" id="cardholder_name" name="cardholder_name" placeholder="Enter name on card" required>
+        </div>
+
+        <!-- Card Number -->
+        <div class="form-row">
+            <label for="card_number">Card Number:</label>
+            <input type="number" id="card_number" name="card_number" placeholder="Enter card number" maxlength="16" required>
+        </div>
+
+        <!-- Expiry Date -->
+        <div class="form-row">
+            <label for="expiry_date">Expiry Date:</label>
+            <input type="month" id="expiry_date" name="expiry_date" required>
+        </div>
+
+        <!-- CVV -->
+        <div class="form-row">
+            <label for="cvv">CVV:</label>
+            <input type="password" id="cvv" name="cvv" placeholder="cvv" maxlength="3" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class = 'dep-button' style="margin-top: 20px;">Deposit</button>
+    </form>
+</div>
+
+<style>
+
+    .deposit-title{
+        font-size: 2rem;
+        text-align: center;
+        color: #1f4c76;
+        font-weight:bold;
+        margin-bottom: 40px;
+        margin-top: 120px
+    }
+
+
+    .wallet-container {
+        background-color: #1f4c76;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .form-title {
+        margin-top:10px;
+        margin-bottom:20px;
+        color:white;
+        font-weight:bold;
+        text-align:left;
+    }
+
+    .form-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-row label {
+        width: 40%;
+        font-size: 1rem;
+        color: #F8F9FA;
+    }
+
+    .form-row input {
+        width: 55%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #1f4c76;
+    }
+
+
+    .dep-button {
+        width: 100%;
+        padding: 12px 0; /* Slightly increased padding */
+        background-color: white;
+        color: #1f4c76;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+    }
+    
+    .dep-button:hover {
+        background-color: black;
+        color: white;
+    }
+    
+    .dep-button:focus {
+        outline: 2px solid #1f4c76; /* Add focus for accessibility */
+        outline-offset: 2px;
+    }
+    
+
+
+    #trade-msg {
+        text-align: center;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid;
+    }
+    .success {
+            color: green;
+            border-color: green;
+            font-weight: bold;
+        }
+    .error {
+            color: red;
+            border-color: red;
+            font-weight: bold;
+        }
+</style>
+{% endblock %}

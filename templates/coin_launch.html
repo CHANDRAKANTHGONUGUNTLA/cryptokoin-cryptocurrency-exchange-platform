@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}CryptoKoiN Launch | CryptoKoiN{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block content %}
+
+<h2 class="launch-intro">Introducing</h2>
+
+
+<div class="coin-image-container">
+    <img src="/static/cryptokoin.png" alt="CryptoKoin" class="coin-image">
+</div>
+
+<h2 class="launch-title">CryptoKoiN</h2>
+
+<div class="launch-container">
+    <p class="intro-text">
+        We’re thrilled to announce the upcoming launch of our very own cryptocurrency, <strong class = "ckn">CryptoKoiN (CKN)</strong>! As a valued user of our platform, you’ll enjoy exclusive benefits when you join our journey.
+    </p>
+
+    <div class="benefits-section">
+        <h3>Exclusive Benefits for Our Users:</h3>
+        <ul>
+            <li><strong>Free CKN Tokens:</strong> Receive 100 CKN tokens upon launch, just for being a registered user.</li>
+            <li><strong>Early Access:</strong> Be among the first to trade and use CKN within our platform.</li>
+            <li><strong>Loyalty Rewards:</strong> Earn bonus tokens for regular activity and transactions.</li>
+            <li><strong>Discounted Fees:</strong> Enjoy reduced transaction fees when using CKN.</li>
+        </ul>
+    </div>
+
+    <div class="cta-section">
+        <p>Stay tuned for updates on the launch. Don’t miss this opportunity to be part of something revolutionary!</p>
+    </div>
+</div>
+
+<style>
+    .launch-intro {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #1f4c76;
+        font-weight: bold;
+        margin-top: 80px;
+        letter-spacing: 1px; /* Add spacing between letters */
+        word-spacing: 3px; 
+    }
+    
+    .launch-title {
+        font-family: "Vast Shadow", serif;
+        font-size: 2.5rem;
+        text-align: center;
+        color: #efbf04;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        letter-spacing: 2px; /* Add spacing between letters */
+        word-spacing: 5px; 
+    }
+    
+    .coin-image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+    
+    .coin-image {
+            max-width: 200px;
+            height: auto;
+        }
+    
+    
+    .launch-container {
+        background-color: #1f4c76;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+    }
+    .ckn {
+        font-family: "Vast Shadow", serif;
+        color: #efbf04;
+        font-weight: bold;
+    }
+    
+    
+    .intro-text {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    
+    .benefits-section {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    
+    .benefits-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: black;
+        margin-bottom: 10px;
+    }
+    
+    .benefits-section ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        font-size: 1.1rem;
+    }
+    
+    .benefits-section li {
+        margin-bottom: 10px;
+    }
+    
+    .cta-section {
+        margin-top: 20px;
+        font-size: 1.2rem;
+    }
+    
+    .subscribe-button:hover {
+        background-color: black;
+        color: white;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block title %}Trade | cryptoKoin{% endblock %}
+
+{% block content %}
+<div class="trade-container">
+    <h1 class="trade-title">Trade Cryptocurrencies</h1>
+    
+    <!-- Wallet Balance -->
+    <div class="wallet-section">
+        <h2>Wallet Balance: $<span id="wallet-balance">{{ wallet_balance| round(2) }}</span></h2>
+        <a href="#" id="recharge-link">Recharge Wallet</a>
+    </div>
+
+    <!-- Trade Buttons -->
+    <p class="trade-question">Are you Buying or Selling?</p>
+    <div class="trade-buttons">
+        <button id="buy-button" class="active">Buy</button>
+        <button id="sell-button">Sell</button>
+    </div>
+
+    {% if msg %}
+    <div id="trade-msg" class="{{ msg_type }}">
+        {{ msg }}
+    </div>
+    {% endif %}
+
+    <!-- Trade Form -->
+    <form id="trade-form" method="POST" action="{{ url_for('trade') }}">
+        <!-- Hidden Input for Trade Type -->
+        <input type="hidden" name="trade_type" id="trade-type" value="buy">
+
+        <!-- Select Cryptocurrency -->
+        <div class="form-group">
+            <label for="crypto-select">Select Cryptocurrency:</label>
+            <select id="crypto-select" name="crypto" required>
+                <option value="" disabled selected>Select a coin</option>
+                {% for coin in coins %}
+                <option value="{{ coin['coin_symbol'] }}" data-price="{{ coin['current_price'] }}" data-shares-owned="{{ coin['shares_owned'] }}">
+                    {{ coin['coin_name'] }} ({{ coin['coin_symbol'] }})
+                </option>
+                {% endfor %}
+            </select>
+            
+        </div>
+
+        <!-- Shares Owned (Sell Mode Only) -->
+        <div id="shares-owned-section" class="form-group">
+            <p><b>Shares Owned:</b> <span id="shares-owned">0</span></p>
+        </div>
+
+        <!-- Shares Input -->
+        <div class="form-group">
+            <label for="shares-input">Enter Shares:</label>
+            <input type="number" id="shares-input" name="shares" step="0.0001" placeholder="Enter number of shares" required>
+
+        </div>
+
+        <!-- Price and Tax -->
+        <div class="form-group">
+            <label for="price-input">Price (USD):</label>
+            <input type="number" id="price-input" name="price" placeholder="Calculated price" readonly>
+        </div>
+        <div class="form-group">
+            <p><b>CKN Fee (3%):</b> $<span id="tax-value">0.00</span></p>
+        </div>
+
+        <!-- Total Amount -->
+        <div class="form-group">
+            <p><b>Total Amount:</b> $<span id="total-value">0.00</span></p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submit-button">Submit</button>
+    </form>
+</div>
+
+<style>
+    .trade-container {
+        margin: 20px;
+    }
+
+
+    .trade-title {
+        text-align: center;
+        font-family: 'Electrolize', sans-serif;
+        margin-top: 80px; 
+        margin-bottom: 20px;
+    }
+    
+
+    .wallet-section {
+        text-align: center;
+        font-family: 'Electrolize', sans-serif;
+        margin-bottom: 20px;
+    }
+
+    .trade-question {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-family: 'Electrolize', sans-serif;
+    }
+    
+    .trade-buttons {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .trade-buttons button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        color: white;
+        background-color: lightgray; /* Default inactive color */
+    }
+
+    .trade-buttons button.active {
+        background-color: blue; /* Active color */
+    }
+
+    .trade-buttons button:hover {
+        background-color: #0056b3;
+    }
+
+    #sell-button.active {
+        background-color: blue; /* Active sell button color */
+    }
+    
+    #sell-button {
+        background-color: lightgray; /* Inactive sell button color */
+    }
+
+    #recharge-link {
+        display: block;
+        margin-top: 10px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    #recharge-link:hover {
+        text-decoration: underline;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    #submit-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #submit-button:hover {
+        background-color: #0056b3;
+    }
+
+    #shares-owned-section {
+        display: none; /* Visible only in Sell Mode */
+    }
+
+    
+    #trade-msg {
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid;
+        }
+    .success {
+            color: green;
+            border-color: green;
+            font-weight: bold;
+        }
+    .error {
+            color: red;
+            border-color: red;
+            font-weight: bold;
+        }
+    
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buyButton = document.getElementById("buy-button");
+        const sellButton = document.getElementById("sell-button");
+        const tradeTypeInput = document.getElementById("trade-type");
+        const tradeForm = document.getElementById("trade-form");
+        const cryptoSelect = document.getElementById("crypto-select");
+        const sharesInput = document.getElementById("shares-input");
+        const priceInput = document.getElementById("price-input");
+        const taxValue = document.getElementById("tax-value");
+        const totalValue = document.getElementById("total-value");
+        const sharesOwnedSection = document.getElementById("shares-owned-section");
+        const sharesOwned = document.getElementById("shares-owned");
+
+        let mode = "buy"; // Default mode
+
+        function switchMode(newMode) {
+            mode = newMode;
+            tradeTypeInput.value = mode; // Update hidden input value
+
+            // Update button styles
+            if (mode === "buy") {
+                buyButton.classList.add("active");
+                sellButton.classList.remove("active");
+                sharesOwnedSection.style.display = "none";
+            } else {
+                sellButton.classList.add("active");
+                buyButton.classList.remove("active");
+                sharesOwnedSection.style.display = "block";
+
+                // Show shares owned for the selected crypto
+                const selectedCrypto = cryptoSelect.options[cryptoSelect.selectedIndex];
+                sharesOwned.textContent = selectedCrypto.getAttribute("data-shares-owned");
+            }
+
+            // Reset form inputs
+            sharesInput.value = "";
+            priceInput.value = "";
+            taxValue.textContent = "0.00";
+            totalValue.textContent = "0.00";
+        }
+
+        function updateCalculations() {
+            const selectedCrypto = cryptoSelect.options[cryptoSelect.selectedIndex];
+            const cryptoPrice = parseFloat(selectedCrypto.getAttribute("data-price"));
+            const shares = parseFloat(sharesInput.value);
+        
+            if (!isNaN(cryptoPrice) && !isNaN(shares)) {
+                const totalPrice = cryptoPrice * shares;
+                const tax = totalPrice * 0.03;
+        
+                let totalAmount;
+                if (mode === "buy") {
+                    totalAmount = totalPrice + tax;
+                } else {
+                    totalAmount = totalPrice - tax;
+                }
+        
+                priceInput.value = totalPrice.toFixed(2);
+                taxValue.textContent = tax.toFixed(2);
+                totalValue.textContent = totalAmount.toFixed(2);
+            } else {
+                priceInput.value = "";
+                taxValue.textContent = "0.00";
+                totalValue.textContent = "0.00";
+            }
+        }
+        
+
+        // Event listeners
+        buyButton.addEventListener("click", () => switchMode("buy"));
+        sellButton.addEventListener("click", () => switchMode("sell"));
+        cryptoSelect.addEventListener("change", () => {
+            if (mode === "sell") {
+                sharesOwned.textContent = cryptoSelect.options[cryptoSelect.selectedIndex].getAttribute("data-shares-owned");
+            }
+            updateCalculations();
+        });
+        sharesInput.addEventListener("input", updateCalculations);
+
+        // Initialize the form in Buy Mode
+        switchMode("buy");
+    });
+</script>
+{% endblock %}

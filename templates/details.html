@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block logo_url %}/mainmenu{% endblock %} 
+{% block cname_url %}/mainmenu{% endblock %} 
+{% block title %}Details - {{ coin['coin_name'] }}{% endblock %}
+
+{% block content %}
+
+{% if msg %}
+<div id="trade-msg" class="{{ msg_type }}">
+    {{ msg }}
+</div>
+{% endif %}
+
+
+<div class="details-container">
+    <!-- Title with Coin Name and Image -->
+    <h1 class="details-title">
+        {% if coin['image_url'] %}
+            <img src="{{ coin['image_url'] }}" alt="{{ coin['coin_name'] }} Logo" class="coin-logo">
+        {% endif %}
+        {{ coin['coin_name'] }} 
+    </h1>
+
+    <!-- Centered Graph -->
+    <div class="graph-container">
+        {{ graph_html|safe }}
+    </div>
+
+    <!-- Coin Details Section -->
+    <div class="coin-details">
+        <div class="details-row">
+            <div class="details-column">
+                <p><strong>Symbol:</strong> {{ coin['coin_symbol'] }}</p>
+                <p><strong>Current Price:</strong> ${{ coin['current_price'] }}</p>
+            </div>
+            <div class="details-column">
+                <p><strong>Market Cap:</strong> ${{ coin['market_cap'] }}</p>
+                <p><strong>Market Cap Rank:</strong> #{{ coin['market_cap_rank'] }}</p>
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-column">
+                <p><strong>24h High:</strong> ${{ coin['high_24h'] }}</p>
+                <p><strong>24h Low:</strong> ${{ coin['low_24h'] }}</p>
+            </div>
+            <div class="details-column">
+                <p><strong>24h Price Change Percentage:</strong> 
+                    <span style="color: {{ 'green' if coin['price_change_percentage_24h'] > 0 else 'red' }}">
+                        {{ coin['price_change_percentage_24h'] }}%
+                    </span>
+                </p>
+                <p><strong>24h Price Change:</strong> 
+                    <span style="color: {{ 'green' if coin['price_change_24h'] > 0 else 'red' }}">
+                        ${{ coin['price_change_24h'] }}
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-column">
+                <p><strong>All-Time High:</strong> ${{ coin['ath'] }}</p>
+                <p><strong>ATH Change Percentage:</strong> {{ coin['ath_change_percentage'] }}%</p>
+            </div>
+            <div class="details-column">
+                <p><strong>Circulating Supply:</strong> {{ coin['circulating_supply'] }}</p>
+                <p><strong>Last Updated:</strong> {{ coin['last_updated'] }}</p>
+        </div>
+
+    </div>
+
+    <!-- Trade Button -->
+    <div class="trade-button-container">
+        <a href="/mainmenu/trade" class="trade-button">Trade {{ coin['coin_symbol'] }}</a>
+    </div>
+</div>
+
+<style>
+    .details-container {
+        margin: 40px auto;
+        max-width: 900px;
+        padding: 20px;
+    }
+
+    .details-title {
+        text-align: center;
+        font-family: 'Electrolize', sans-serif;
+        margin-bottom: 20px;
+    }
+
+    .coin-logo, .graph-logo {
+        height: 40px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    .graph-container {
+        margin: 40px auto;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .coin-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-family: 'Electrolize', sans-serif;
+    }
+
+    .details-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .details-column {
+        flex: 1;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-column p {
+        margin: 10px 0;
+    }
+
+    .details-column strong {
+        font-weight: bold;
+    }
+
+    .details-column span {
+        font-weight: bold;
+    }
+
+    .trade-button-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .trade-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .trade-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
